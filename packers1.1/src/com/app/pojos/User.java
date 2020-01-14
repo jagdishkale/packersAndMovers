@@ -30,6 +30,14 @@ public class User
 		this.phoneNo = phoneNo;
 	}
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
@@ -65,15 +73,7 @@ public class User
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	@OneToOne(mappedBy = "selectedUser", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+		
 	@Column(length = 50)
 	public String getPhoneNo() {
 		return phoneNo;

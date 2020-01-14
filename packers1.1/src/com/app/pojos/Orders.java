@@ -1,6 +1,8 @@
 package com.app.pojos;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -12,21 +14,41 @@ public class Orders
 	private int id;
 	private String shiftFrom, shiftTo;
 	private ServiceType service;
-	private LocalDate orderDate;
-	private int totalAmount;
+	private LocalDate orderDate;	
+	private Charges charges;
+	private List<Goods>listOfGoods = new ArrayList<Goods>();
 	
 	public Orders() {
 	System.out.println("in orders ctor");
 	}
-
-	public Orders(String shiftFrom, String shiftTo, ServiceType service, LocalDate orderDate, int totalAmount) {
+	
+	public Orders(String shiftFrom, String shiftTo, ServiceType service, LocalDate orderDate) {
 		super();
 		this.shiftFrom = shiftFrom;
 		this.shiftTo = shiftTo;
 		this.service = service;
 		this.orderDate = orderDate;
-		this.totalAmount = totalAmount;
+	}	
+	@OneToMany
+	@JoinColumn(name = "goods_id")
+	public List<Goods> getListOfGoods() {
+		return listOfGoods;
 	}
+
+	public void setListOfGoods(List<Goods> listOfGoods) {
+		this.listOfGoods = listOfGoods;
+	}
+
+	@OneToOne
+	@JoinColumn(name = "charges_id")
+	public Charges getCharges() {
+		return charges;
+	}
+
+	public void setCharges(Charges charges) {
+		this.charges = charges;
+	}
+
 	@ManyToOne()
 	@JoinColumn(name = "user_id")
 	public User getSelectedUser() {
@@ -78,19 +100,13 @@ public class Orders
 	public void setOrderDate(LocalDate orderDate) {
 		this.orderDate = orderDate;
 	}
-	@Column(name = "total_amount")
-	public int getTotalAmount() {
-		return totalAmount;
-	}
-
-	public void setTotalAmount(int totalAmount) {
-		this.totalAmount = totalAmount;
-	}
 
 	@Override
 	public String toString() {
-		return "Orders [selectedUser=" + selectedUser + ", id=" + id + ", shiftFrom=" + shiftFrom + ", shiftTo="
-				+ shiftTo + ", service=" + service + ", orderDate=" + orderDate + ", totalAmount=" + totalAmount + "]";
+		return String.format(
+				"Orders [selectedUser=%s, id=%s, shiftFrom=%s, shiftTo=%s, service=%s, orderDate=%s, charges=%s]",
+				selectedUser, id, shiftFrom, shiftTo, service, orderDate, charges);
 	}
+
 	
 }

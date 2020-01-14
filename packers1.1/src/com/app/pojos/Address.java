@@ -2,12 +2,9 @@ package com.app.pojos;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "address")
+@Embeddable
 public class Address 
-{
-	private int id;
-	private User selectedUser;
+{	
 	private String street, city, state, country;
 	private int pinCode;
 	
@@ -23,27 +20,7 @@ public class Address
 		this.state = state;
 		this.country = country;
 		this.pinCode = pinCode;
-	}
-
-	@Id
-	@Column(name = "sr_no")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-	@OneToOne
-	@JoinColumn(name = "user_id")	
-	public User getSelectedUser() {
-		return selectedUser;
-	}
-
-	public void setSelectedUser(User selectedUser) {
-		this.selectedUser = selectedUser;
-	}
+	}	
 	@Column(length = 50)
 	public String getStreet() {
 		return street;
@@ -87,9 +64,8 @@ public class Address
 
 	@Override
 	public String toString() {
-		return "Address [selectedUser=" + selectedUser + ", street=" + street + ", city=" + city + ", state=" + state
-				+ ", country=" + country + ", pinCode=" + pinCode + "]";
-	}
-
+		return String.format("Address [street=%s, city=%s, state=%s, country=%s, pinCode=%s]", street, city, state,
+				country, pinCode);
+	}	
 	
 }

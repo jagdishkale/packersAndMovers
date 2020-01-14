@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Goods 
 {
 	private int id;
-	private String category, name;
+	private String name;
 	private double charges;
 	
 	public Goods() 
@@ -15,9 +15,8 @@ public class Goods
 		System.out.println("in ctor of "+getClass().getName());
 	}
 
-	public Goods(String category, String name, double charges) {
-		super();
-		this.category = category;
+	public Goods(String name, double charges) {
+		super();		
 		this.name = name;
 		this.charges = charges;
 	}
@@ -31,14 +30,7 @@ public class Goods
 	public void setId(int id) {
 		this.id = id;
 	}
-	@Column(name = "category", length = 50)
-	public String getCategory() {
-		return category;
-	}
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
 	@Column(name = "item_name", length = 50)
 	public String getName() {
 		return name;
@@ -47,7 +39,7 @@ public class Goods
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Column(name = "charges_per_item")
+	@Column(name = "charges_per_kg")
 	public double getCharges() {
 		return charges;
 	}
@@ -58,7 +50,7 @@ public class Goods
 
 	@Override
 	public String toString() {
-		return String.format("Goods [id=%s, category=%s, name=%s, charges=%s]", id, category, name, charges);
-	}
+		return String.format("Goods [id=%s, name=%s, charges=%s]", id, name, charges);
+	}	
 	
 }
